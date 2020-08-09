@@ -1,24 +1,22 @@
 import * as vscode from 'vscode'
 
-import { getSpiderName, runSpider } from './utils'
+import { scrapyRun } from './scrapyRunner'
 
 export function activate(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand(
+  const runSpiderCommand = vscode.commands.registerCommand(
     'scrapy-command-runner.runSpider',
     () => {
-      const editor = vscode.window.activeTextEditor
-      if (!editor) {
-        return
-      }
-      const { document } = editor
-      const spiderName = getSpiderName(document)
-      if (spiderName) {
-        runSpider(spiderName)
-      }
+      scrapyRun('spider-run')
+    }
+  )
+  const testSpiderCommand = vscode.commands.registerCommand(
+    'scrapy-command-runner.testSpider',
+    () => {
+      scrapyRun('spider-test')
     }
   )
 
-  context.subscriptions.push(disposable)
+  context.subscriptions.push(runSpiderCommand, testSpiderCommand)
 }
 
 export function deactivate() {}

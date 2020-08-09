@@ -10,7 +10,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:scrapy-command-runner.runSpider"
+    "onCommand:scrapy-command-runner.runSpider",
+    "onCommand:scrapy-command-runner.testSpider"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -18,6 +19,10 @@
       {
         "command": "scrapy-command-runner.runSpider",
         "title": "Scrapy: Run Spider"
+      },
+      {
+        "command": "scrapy-command-runner.testSpider",
+        "title": "Scrapy: Test Spider"
       }
     ]
   },

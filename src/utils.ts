@@ -17,11 +17,11 @@ function getSpiderName(document: vscode.TextDocument): string | null {
 // Keep track of last active terminal id
 let NEXT_TERM_ID = 1
 
-async function runSpider(spiderName: string) {
+async function runTerminalCommand(command: string, spiderName: string) {
   let terminal = await selectTerminal()
   // For now relying on existence of a `spider-run` script alias defined in user's shell
   // TODO - consider running full command inline. Requires clearing log file, output file and running spider
-  terminal.sendText(`spider-run ${spiderName}`)
+  terminal.sendText(`${command} ${spiderName}`)
 }
 
 // Select from existing terminals or create a new one.
@@ -50,4 +50,4 @@ function createTerminal(): vscode.Terminal {
   return vscode.window.createTerminal(`Scrapy runner #${NEXT_TERM_ID++}`)
 }
 
-export { getSpiderName, runSpider }
+export { getSpiderName, runTerminalCommand }
