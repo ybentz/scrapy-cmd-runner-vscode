@@ -1,6 +1,6 @@
 import * as vscode from 'vscode'
 
-import { getSpiderName } from './utils'
+import { getSpiderName, runSpider } from './utils'
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand(
@@ -12,7 +12,9 @@ export function activate(context: vscode.ExtensionContext) {
       }
       const { document } = editor
       const spiderName = getSpiderName(document)
-      vscode.window.showInformationMessage(spiderName)
+      if (spiderName) {
+        runSpider(spiderName)
+      }
     }
   )
 
