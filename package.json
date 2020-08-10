@@ -2,7 +2,7 @@
   "name": "scrapy-command-runner",
   "displayName": "Scrapy Command Runner",
   "description": "Easily run Scrapy commands straight from VS Code",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "publisher": "ybentz",
   "engines": {
     "vscode": "^1.47.0"
