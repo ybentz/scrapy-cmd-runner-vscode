@@ -3,6 +3,7 @@
   "displayName": "Scrapy Command Runner",
   "description": "Easily run Scrapy commands straight from VS Code",
   "version": "0.0.1",
+  "publisher": "ybentz",
   "engines": {
     "vscode": "^1.47.0"
   },
@@ -46,5 +47,9 @@
     "mocha": "^7.1.2",
     "typescript": "^3.8.3",
     "vscode-test": "^1.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ybentz/scrapy-cmd-runner-vscode"
   }
 }
