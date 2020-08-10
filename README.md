@@ -1,65 +1,44 @@
-# scrapy-command-runner README
+# Scrapy Command Runner for VS Code
 
-This is the README for your extension "scrapy-command-runner". After writing up a brief description, we recommend including the following sections.
+This is a simple extension that helps you run essential Scrapy commands such as running your Scrapy spiders directly on VS Code.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+The extension adds 2 commands to VS Code's Command Palette. Both commands behave similarly but trigger a different shell function. When either commands are ran, it finds the name of the spider in the currently active file and runs a specific, user-defined, shell function (details in the "requirements" section below) with the spider's name.
 
-For example if there is an image subfolder under your extension project workspace:
+Commands:
 
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+- `Scrapy: Run Spider` - runs the `spider-run` shell script. Used for running a spider.
+- `Scrapy: Test Spider` - runs the `spider-test` shell script. Used for testing a spider (if applicable).
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+The current version of the extension requires a few things in order to work properly:
 
-## Extension Settings
+- Single spider class per file.
+- The spider's class `name` field should be defined as early as possible, best if right under the `class` definition.
+- The extension (currently) relies on the existence of specific shell functions to run. If there's demand, this may change in the future. The shell functions should be defined in your VS Code's default shell's startup file (`.bash_profile / .bashrc / .zshrc / etc..`).
+  - `spider-run`: should first clear the Scrapy logs & output files (if applicable) and then run the `scrapy crawl` command with the passed argument (the spider name). Example:
+    ```shell
+    spider-run() {
+      echo "" > logs.log
+      echo "" > output.json
+      scrapy crawl $1 -o output.json
+    }
+    ```
+  - `spider-test`: should first clear the Scrapy logs & test output files (if applicable) and then run the `scrapy crawl` command with the passed argument (the spider name). Example:
+    ```shell
+    spider-test() {
+      echo "" > logs.log
+      echo "" > test_output_log.log
+      python path/to/spider_tester_script.py $1 -o test_output_log.log
+    }
+    ```
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+### Version History
 
-For example:
+See [CHANGELOG.md](CHANGELOG.md).
 
-This extension contributes the following settings:
+### License
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+[The MIT License](LICENSE)
