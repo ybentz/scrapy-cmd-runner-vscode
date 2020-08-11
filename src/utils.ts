@@ -19,6 +19,8 @@ let NEXT_TERM_ID = 1
 
 async function runTerminalCommand(command: string, spiderName: string) {
   let terminal = await selectTerminal()
+  // Make sure terminal is open and focused into
+  terminal.show()
   // For now relying on existence of a `spider-run` script alias defined in user's shell
   // TODO - consider running full command inline. Requires clearing log file, output file and running spider
   terminal.sendText(`${command} ${spiderName}`)
